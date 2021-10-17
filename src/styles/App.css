@@ -1,0 +1,14 @@
+.table-striped-rows tr:nth-child(2n) td {
+    background-color: #d1e0e0;
+}
+.table-striped-rows hover {
+    background-color: green;
+}
+
+.table-striped-rows hover td {
+    background-color: #000;
+}
+
+.App {
+    padding: 50px;
+}
