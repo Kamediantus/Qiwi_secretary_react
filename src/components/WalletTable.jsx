@@ -7,7 +7,6 @@ import {
     CaretDownFilled,
     CreditCardFilled
 } from '@ant-design/icons';
-import {dark} from "../logic/writer";
 import data from '../data/wallets.json'
 
 const columns = [
@@ -87,8 +86,7 @@ const columns = [
             <Button
                 shape={'round'}
                 color={'green'}
-                type={'primary'}
-                onClick={(event) => dark()}>
+                type={'primary'}>
 
                 Open wallet
 
