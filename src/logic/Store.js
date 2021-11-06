@@ -36,27 +36,12 @@ function saveWalletRaw() {
     return result === '' ? 'OK' : result;
 }
 
-
 function saveWalletToFile(wallet) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "POST", serverUrl + serverSubUrlSaveWallet, true ); // false for synchronous request
     xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlHttp.send(JSON.stringify(wallet));
-    // return xmlHttp.responseText;
 }
-
-// function saveWalletToFile(wallet) {
-//     let xhr = new XMLHttpRequest();
-//     let url = serverUrl + serverSubUrlSaveWallet;
-//     xhr.open("POST", url, true);
-//     xhr.setRequestHeader("Content-Type", "application/json");
-//
-//     var data = JSON.stringify({ wallet });
-//     xhr.send(data);
-//
-//     console.log(JSON.stringify(wallet));
-// }
-
 
 export function saveWallet() {
     saveWalletRaw();

@@ -10,5 +10,10 @@
 }
 
 .App {
-    padding: 50px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.otstup {
+    margin-top: 40px;
+    padding: 40px;
 }

@@ -3,11 +3,17 @@ import 'antd/dist/antd.css';
 import './styles/App.css'
 import WalletTable from "./components/WalletTable";
 import NewWalletForm from "./components/NewWalletForm";
+import TopNav from "./components/TopNav";
 
 function App() {
     return (
     <div style={{textAlign: "center", }} className="App" >
-        <NewWalletForm/>
+        <div>
+            <TopNav/>
+        </div>
+        <div className={'otstup'}>
+            <NewWalletForm/>
+        </div>
     </div>
   );
 }

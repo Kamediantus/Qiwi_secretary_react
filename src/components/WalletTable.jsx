@@ -7,7 +7,6 @@ import {
     CaretDownFilled,
     CreditCardFilled
 } from '@ant-design/icons';
-import data from '../data/wallets.json'
 
 const columns = [
     {
@@ -116,7 +115,7 @@ const WalletTable = () => {
                    // rowClassName={(record, index) => index % 2 === 0 ? 'table-row-light' :  'table-row-dark'}
                    className={'table-striped-rows'}
                    columns={columns}
-                   dataSource={data}
+                   // dataSource={data}
                    scroll={{ x: 1500 }}
                    pagination={{ defaultPageSize: 50}}
             />,
