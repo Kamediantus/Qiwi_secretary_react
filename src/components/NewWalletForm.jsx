@@ -87,7 +87,6 @@ class NewWalletForm extends React.Component {
             saveWallet();
         } else {
             alert(resultMessage);
-            // saveWallet();
         }
     }
 
