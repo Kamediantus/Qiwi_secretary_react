@@ -8,6 +8,15 @@
     background-color: #80ffaa;
 }
 
+
+::-webkit-input-placeholder { /* Edge */
+    color: black;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: black;
+}
+
 ::placeholder {
     color: black;
 }

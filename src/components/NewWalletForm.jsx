@@ -14,9 +14,9 @@ class NewWalletForm extends React.Component {
             tokenValue: '',
             fioValue: '',
 
-            validName: 'false',
-            validPhone: 'false',
-            validToken: 'false'
+            validName: 'common',
+            validPhone: 'common',
+            validToken: 'common'
         };
         this.nameRef = React.createRef();
         this.phoneRef = React.createRef();
@@ -32,8 +32,10 @@ class NewWalletForm extends React.Component {
     handleChangeName(event) {
         const value = event.target.value
         this.setState({nameValue: value});
-        if (value.length < 3) {
+        if (value.length < 3 && value.length > 0) {
             this.setState({validName: 'false'})
+        } else if (value.length === 0) {
+            this.setState({validName: 'common'})
         } else {
             this.setState({validName: 'true'})
         }
@@ -42,8 +44,10 @@ class NewWalletForm extends React.Component {
     handleChangePhone(event) {
         const value = event.target.value
         this.setState({phoneValue: value});
-        if (value.length != 11) {
+        if (value.length != 11 && value.length != 0) {
             this.setState({validPhone: 'false'})
+        } else if (value.length === 0) {
+            this.setState({validPhone: 'common'})
         } else {
             this.setState({validPhone: 'true'})
         }
@@ -52,8 +56,10 @@ class NewWalletForm extends React.Component {
     handleChangeToken(event) {
         const value = event.target.value
         this.setState({tokenValue: value});
-        if (value.length != 32) {
+        if (value.length != 32 && value.length != 0) {
             this.setState({validToken: 'false'})
+        } else if (value.length === 0) {
+            this.setState({validToken: 'common'})
         } else {
             this.setState({validToken: 'true'})
         }
@@ -94,7 +100,7 @@ class NewWalletForm extends React.Component {
                                placeholder="Имя кошелька для внутреннего обозначения"
                                ref = {this.nameRef}
                                value={this.state.nameValue}
-                               className={'antd-input ' + (this.state.validName === 'true' ? 'norm' : 'warning')}
+                               className={'antd-input ' + (this.state.validName === 'common' ? null : this.state.validName === 'true' ? 'norm' : 'warning')}
                                onChange={this.handleChangeName}
                         />
                     </Form.Item>
@@ -103,7 +109,7 @@ class NewWalletForm extends React.Component {
                                ref = {this.phoneRef}
                                placeholder="Номер телефона начиная с 7"
                                value={this.state.phoneValue}
-                               className={'antd-input ' + (this.state.validPhone === 'true' ? 'norm' : 'warning')}
+                               className={'antd-input ' + (this.state.validPhone === 'common' ? null : this.state.validPhone === 'true' ? 'norm' : 'warning')}
                                onChange={this.handleChangePhone}
                         />
                     </Form.Item>
@@ -112,7 +118,7 @@ class NewWalletForm extends React.Component {
                                placeholder="API токен киви кошелька"
                                ref = {this.tokenRef}
                                value={this.state.tokenValue}
-                               className={'antd-input ' + (this.state.validToken === 'true' ? 'norm' : 'warning')}
+                               className={'antd-input ' + (this.state.validToken === 'common' ? null : this.state.validToken === 'true' ? 'norm' : 'warning')}
                                onChange={this.handleChangeToken}
                         />
                     </Form.Item>
