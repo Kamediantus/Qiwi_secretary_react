@@ -1,0 +1,13 @@
+.warning {
+    color: black;
+    background-color: #ff9999;
+}
+
+.norm {
+    color: black;
+    background-color: #80ffaa;
+}
+
+::placeholder {
+    color: black;
+}

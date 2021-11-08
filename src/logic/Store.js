@@ -15,25 +15,8 @@ function saveWalletRaw() {
         token: document.forms.item(formIndex).elements.item(tokenIndex).value,
         full_name: document.forms.item(formIndex).elements.item(full_nameIndex).value
     }
-    let result = '';
-
-    if (wallet.name === '') {
-        console.log('Name should be specified.')
-        result += 'Name should be specified.\n';
-    }
-    if (wallet.phone === '') {
-        console.log('Phone should be specified.')
-        result += 'Phone should be specified.\n';
-    }
-    if (wallet.token === '') {
-        console.log('API token should be specified.')
-        result += 'API token should be specified.';
-    }
-    console.log(wallet)
 
     saveWalletToFile(wallet);
-
-    return result === '' ? 'OK' : result;
 }
 
 function saveWalletToFile(wallet) {
