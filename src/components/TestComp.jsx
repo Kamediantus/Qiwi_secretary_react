@@ -1,14 +1,10 @@
-import React from 'react';
-import 'antd/dist/antd.css';
-import '../styles/App.css'
-import {Button, Table} from 'antd';
-import {
-    CaretUpFilled,
-    CaretDownFilled,
-    CreditCardFilled
-} from '@ant-design/icons';
+import React from "react";
+import {Button} from "antd";
+import {CaretDownFilled, CaretUpFilled, CreditCardFilled} from "@ant-design/icons";
+
 
 const serverUrl = 'http://localhost:8080';
+const serverSubUrlSaveWallet = '/save';
 const serverGetWalletsUrl = '/wallets';
 
 const columns = [
@@ -98,7 +94,8 @@ const columns = [
     },
 ];
 
-class WalletTable extends React.Component {
+
+class TestComp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -131,27 +128,23 @@ class WalletTable extends React.Component {
     }
 
     render() {
-        const {error, isLoaded, items} = this.state;
+        const { error, isLoaded, items } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
             return (
-                <div>
-                    <Table id={'table'}
-                           size={"small"}
-                           rowClassName={(record, index) => index % 2 === 0 ? 'table-row-light' : 'table-row-dark'}
-                           className={'table-striped-rows'}
-                           columns={columns}
-                           dataSource={items}
-                           scroll={{x: 1500}}
-                           pagination={{defaultPageSize: 50}}
-                    />,
-                </div>
+                <ul>
+                    {items.map(item => (
+                        <li key={item.id}>
+                            {item.name} {item.token}
+                        </li>
+                    ))}
+                </ul>
             );
         }
     }
 }
 
-export default WalletTable;
+export default TestComp;

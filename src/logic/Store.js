@@ -1,3 +1,4 @@
+import UrlFetchApp from 'url'
 const formIndex = 0;
 
 const nameIndex = 0;
@@ -7,6 +8,7 @@ const full_nameIndex = 3;
 
 const serverUrl = 'http://localhost:8080';
 const serverSubUrlSaveWallet = '/save';
+const serverGetWalletsUrl = '/wallets';
 
 function saveWalletRaw() {
     const wallet = {
@@ -26,6 +28,41 @@ function saveWalletToFile(wallet) {
     xmlHttp.send(JSON.stringify(wallet));
 }
 
+function getExistWallets(callback) {
+    var req = new XMLHttpRequest();
+    req.responseType = 'json';
+    req.open('GET', serverUrl + serverGetWalletsUrl);
+    req.onload  = function() {
+        // var jsonResponse = req.response;
+        callback(req.response);
+    };
+    req.send();
+    // console.log(result);
+    // req.send(null);
+    // console.log(result);
+    // return result;
+}
+
+    function foo(callback) {
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.responseType = 'json';
+        // httpRequest.open('GET', serverUrl + serverGetWalletsUrl);
+        httpRequest.onreadystatechange = function () {
+            // if (httpRequest.readyState === 4) { // request is done
+            //     if (httpRequest.status === 200) { // successfully
+                    callback(httpRequest.response); // we're calling our method
+                // }
+            // }
+        };
+        httpRequest.open('GET', serverUrl + serverGetWalletsUrl);
+        httpRequest.send();
+    }
+
 export function saveWallet() {
     saveWalletRaw();
+}
+
+export function getWallets(func) {
+    getExistWallets(func);
+    // getExistWallets(result);
 }
