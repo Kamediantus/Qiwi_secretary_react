@@ -3,21 +3,25 @@ import 'antd/dist/antd.css';
 import {Button, Form, Input} from "antd";
 import '../styles/NewWallet.css'
 import {saveWallet} from "../logic/Store";
-import {validateName, validatePhone} from "../logic/Validator"
+import {validateName, validatePhone} from "../logic/Validator";
+
+const clearState = {
+    nameValue: '',
+    phoneValue: '',
+    tokenValue: '',
+    fioValue: '',
+
+    validName: 'common',
+    validPhone: 'common',
+    validToken: 'common'
+}
 
 class NewWalletForm extends React.Component {
+
     constructor(props) {
         super(props);
-        this.state = {
-            nameValue: '',
-            phoneValue: '',
-            tokenValue: '',
-            fioValue: '',
+        this.state = clearState;
 
-            validName: 'common',
-            validPhone: 'common',
-            validToken: 'common'
-        };
         this.nameRef = React.createRef();
         this.phoneRef = React.createRef();
         this.tokenRef = React.createRef();
@@ -85,6 +89,7 @@ class NewWalletForm extends React.Component {
             resultMessage += 'Кошелек с номером ' + this.state.phoneValue + ' успешно сохранен.'
             alert(resultMessage);
             saveWallet();
+            this.setState(clearState);
         } else {
             alert(resultMessage);
         }

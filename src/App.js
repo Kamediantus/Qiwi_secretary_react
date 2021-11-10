@@ -12,9 +12,9 @@ function App() {
         {/*<div>*/}
         {/*    <TopNav/>*/}
         {/*</div>*/}
-        {/*<div className={'otstup'}>*/}
-        {/*    <NewWalletForm/>*/}
-        {/*</div>*/}
+        <div className={'otstup'}>
+            <NewWalletForm/>
+        </div>
         <div className={'otstup'}>
             <WalletTable/>
         </div>
