@@ -10,15 +10,15 @@ import TopNav from "./components/TopNav";
 function App() {
     return (
     <div style={{textAlign: "center", }} className="App" >
-        {/*<div>*/}
-        {/*    <TopNav/>*/}
+        <div>
+            <TopNav/>
+        </div>
+        {/*<div className={'otstup'}>*/}
+        {/*    <NewWalletForm/>*/}
         {/*</div>*/}
-        <div className={'otstup'}>
-            <NewWalletForm/>
-        </div>
-        <div className={'otstup'}>
-            <WalletTable/>
-        </div>
+        {/*<div className={'otstup'}>*/}
+        {/*    <WalletTable/>*/}
+        {/*</div>*/}
         {/*<div className={'otstup'}>*/}
         {/*    <SimpButt></SimpButt>*/}
         {/*</div>*/}

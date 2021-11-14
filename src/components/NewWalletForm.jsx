@@ -3,7 +3,6 @@ import 'antd/dist/antd.css';
 import {Button, Form, Input} from "antd";
 import '../styles/NewWallet.css'
 import {saveWallet} from "../logic/Store";
-import {validateName, validatePhone} from "../logic/Validator";
 
 const clearState = {
     nameValue: '',
