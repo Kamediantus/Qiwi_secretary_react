@@ -134,7 +134,7 @@ class NewWalletForm extends React.Component {
                     <Form.Item>
                         <Button type="primary"
                                 onClick={this.handleSubmit}
-                        >Submit</Button>
+                        >Сохранить</Button>
                     </Form.Item>
                 </Form>
             </div>

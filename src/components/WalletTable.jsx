@@ -5,7 +5,8 @@ import {Button, Table} from 'antd';
 import {
     CaretUpFilled,
     CaretDownFilled,
-    CreditCardFilled
+    FullscreenOutlined,
+    EditOutlined
 } from '@ant-design/icons';
 
 const serverUrl = 'http://localhost:8080';
@@ -20,82 +21,88 @@ const columns = [
         fixed: 'left',
     },
     {
-        title: 'Name',
+        title: 'Имя',
         width: 80,
         dataIndex: 'name',
         key: 'name',
         fixed: 'left',
     },
     {
-        title: 'Phone',
+        title: 'Телефон',
         width: 60,
         dataIndex: 'phone',
         key: 'phone',
         fixed: 'left',
     },
     {
-        title: 'Balance',
+        title: 'Баланс',
         dataIndex: 'balance',
         key: 'balance',
         width: 50,
     },
     {
-        title: 'Full name',
+        title: 'ФИО',
         dataIndex: 'full_name',
         key: '2',
         width: 150,
     },
     {
-        title: 'API token',
+        title: 'API токен',
         dataIndex: 'token',
         key: '2',
         width: 150,
     },
     {
-        title: 'Deposit',
+        title: 'Депозит',
         key: 'operationDeposit',
         fixed: 'right',
         width: 70,
         render: () => <a>
-            <Button
-                shape={'round'}
-                color={'green'}
-                type={'primary'}
-            >
-                Deposit
+            <Button shape={'round'} color={'green'} type={'primary'} block>
+                Депозит
                 <CaretDownFilled />
             </Button>
         </a>,
     },
     {
-        title: 'Withdrawal',
+        title: 'Списание',
         key: 'operationWithdrawal',
         fixed: 'right',
         width: 70,
         render: () => <a>
-            <Button shape={'round'} color={'green'} type={'primary'}>
-                Withdrawal
+            <Button shape={'round'} color={'green'} type={'primary'} block>
+                Списание
                 <CaretUpFilled />
             </Button>
         </a>,
     },
     {
-        title: 'Open wallet',
+        title: 'Открыть в новом окне',
         key: 'operationOpenWallet',
         fixed: 'right',
         width: 70,
         render: () => <a>
-            <Button
-                shape={'round'}
-                color={'green'}
-                type={'primary'}>
+            <Button shape={'round'} color={'green'} type={'primary'} block>
 
-                Open wallet
+                Открыть
 
-                <CreditCardFilled />
+                <FullscreenOutlined />
             </Button>
         </a>,
     },
+    {
+        title: 'Править',
+        key: 'operationEditWallet',
+        fixed: 'right',
+        width: 70,
+        render: () => <a>
+            <Button shape={'round'} color={'green'} type={'primary'} block>
+
+                Править
+                <EditOutlined />
+            </Button>
+        </a>,
+    }
 ];
 
 class WalletTable extends React.Component {
