@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import '../styles/App.css';
+import '../../styles/App.css';
 import { Layout, Menu } from 'antd';
 import { FaWallet } from "react-icons/fa";
 import { TransactionOutlined, HistoryOutlined, SettingOutlined, PlusSquareOutlined } from '@ant-design/icons';

@@ -3,9 +3,9 @@ import 'antd/dist/antd.css';
 import './styles/App.css'
 import SimpButt from "./testus/SimpButt"
 import TestComp from "./components/TestComp";
-import WalletTable from "./components/WalletTable";
-import NewWalletForm from "./components/NewWalletForm";
-import TopNav from "./components/TopNav";
+import WalletTable from "./components/high_level/WalletTable";
+import NewWalletForm from "./components/high_level/NewWalletForm";
+import TopNav from "./components/high_level/TopNav";
 
 function App() {
     return (

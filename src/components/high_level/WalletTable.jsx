@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import '../styles/App.css'
+import '../../styles/App.css'
 import {Button, Table} from 'antd';
 import {
     CaretUpFilled,
