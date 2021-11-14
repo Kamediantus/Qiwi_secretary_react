@@ -33,14 +33,19 @@ function getExistWallets(callback) {
     req.responseType = 'json';
     req.open('GET', serverUrl + serverGetWalletsUrl);
     req.onload  = function() {
-        // var jsonResponse = req.response;
         callback(req.response);
     };
     req.send();
-    // console.log(result);
-    // req.send(null);
-    // console.log(result);
-    // return result;
+}
+
+function getBalance(callback) {
+    var req = new XMLHttpRequest();
+    req.responseType = 'json';
+    req.open('GET', serverUrl + serverGetWalletsUrl);
+    req.onload  = function() {
+        callback(req.response);
+    };
+    req.send();
 }
 
     function foo(callback) {

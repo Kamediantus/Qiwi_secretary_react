@@ -1,6 +1,7 @@
 import React from "react";
 import 'antd/dist/antd.css';
 import './styles/App.css'
+import SimpButt from "./testus/SimpButt"
 import TestComp from "./components/TestComp";
 import WalletTable from "./components/WalletTable";
 import NewWalletForm from "./components/NewWalletForm";
@@ -18,7 +19,10 @@ function App() {
         <div className={'otstup'}>
             <WalletTable/>
         </div>
-        {/*<TestComp></TestComp>*/}
+        {/*<div className={'otstup'}>*/}
+        {/*    <SimpButt></SimpButt>*/}
+        {/*</div>*/}
+            {/*<TestComp></TestComp>*/}
     </div>
   );
 }
