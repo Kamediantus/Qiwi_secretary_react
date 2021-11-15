@@ -1,6 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import '../../styles/App.css'
+import '../../styles/WalletTable.css'
 import {Button, Table} from 'antd';
 import {
     CaretUpFilled,
@@ -11,6 +12,11 @@ import {
 
 const serverUrl = 'http://localhost:8080';
 const serverGetWalletsUrl = '/wallets';
+
+function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
 
 const columns = [
     {
@@ -38,8 +44,19 @@ const columns = [
         title: 'Баланс',
         dataIndex: 'balance',
         key: 'balance',
-        width: 50,
-    },
+        width: 80,
+        render(text, record) {
+            return {
+                props: {
+                    // style: {background: parseInt(text) === -404 ? "red" : "green"}
+                },
+                children: parseInt(text) === -404 ?
+                    <div className="popup" onClick={myFunction}>Что-то не так(
+                        <span className="popuptext" id="myPopup">Проверьте введенный номер телефона и API токен.</span>
+                    </div>
+                    :
+                    <div>{text}</div>
+            }}},
     {
         title: 'ФИО',
         dataIndex: 'full_name',
@@ -60,7 +77,7 @@ const columns = [
         render: () => <a>
             <Button shape={'round'} color={'green'} type={'primary'} block>
                 Депозит
-                <CaretDownFilled />
+                <CaretDownFilled/>
             </Button>
         </a>,
     },
@@ -72,7 +89,7 @@ const columns = [
         render: () => <a>
             <Button shape={'round'} color={'green'} type={'primary'} block>
                 Списание
-                <CaretUpFilled />
+                <CaretUpFilled/>
             </Button>
         </a>,
     },
@@ -86,7 +103,7 @@ const columns = [
 
                 Открыть
 
-                <FullscreenOutlined />
+                <FullscreenOutlined/>
             </Button>
         </a>,
     },
@@ -99,66 +116,67 @@ const columns = [
             <Button shape={'round'} color={'green'} type={'primary'} block>
 
                 Править
-                <EditOutlined />
+                <EditOutlined/>
             </Button>
-        </a>,
-    }
-];
+        </a>
+}];
 
 class WalletTable extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            error: null,
-            isLoaded: false,
-            items: []
-        };
-    }
-
-    componentDidMount() {
-        fetch(serverUrl + serverGetWalletsUrl)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        items: result
-                    });
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
+       constructor(props) {
+                    super(props);
+                    this.state = {
+                        error: null,
+                        isLoaded: false,
+                        items: []
+                    };
                 }
-            )
-    }
 
-    render() {
-        const {error, isLoaded, items} = this.state;
-        if (error) {
-          return <div>Ошибочка: У вас пока что нет сохраненных кошельков.</div>;
-        } else if (!isLoaded) {
-            return <div>Loading...</div>;
-        } else {
-            return (
-                <div>
-                    <Table id={'table'}
-                           size={"small"}
-                           rowClassName={(record, index) => index % 2 === 0 ? 'table-row-light' : 'table-row-dark'}
-                           className={'table-striped-rows'}
-                           columns={columns}
-                           dataSource={items}
-                           scroll={{x: 1500}}
-                           pagination={{defaultPageSize: 50}}
-                    />,
-                </div>
-            );
-        }
-    }
-}
+                // handleErrorInfo()
+
+                componentDidMount() {
+                    fetch(serverUrl + serverGetWalletsUrl)
+                        .then(res => res.json())
+                        .then(
+                            (result) => {
+                                this.setState({
+                                    isLoaded: true,
+                                    items: result
+                                });
+                            },
+                            // Note: it's important to handle errors here
+                            // instead of a catch() block so that we don't swallow
+                            // exceptions from actual bugs in components.
+                            (error) => {
+                                this.setState({
+                                    isLoaded: true,
+                                    error
+                                });
+                            }
+                        )
+                }
+
+                render() {
+                    const {error, isLoaded, items} = this.state;
+                    if (error) {
+                        return <div>Ошибочка: У вас пока что нет сохраненных кошельков.</div>;
+                    } else if (!isLoaded) {
+                        return <div>Loading...</div>;
+                    } else {
+                        return (
+                            <div>
+                                <Table id={'table'}
+                                       size={"small"}
+                                       rowClassName={(record, index) => index % 2 === 0 ? 'table-row-light' : 'table-row-dark'}
+                                       className={'table-striped-rows'}
+                                       columns={columns}
+                                       dataSource={items}
+                                       scroll={{x: 1500}}
+                                       pagination={{defaultPageSize: 50}}
+                                />,
+                            </div>
+                        );
+                    }
+                }
+            }
 
 export default WalletTable;
