@@ -1,70 +1,42 @@
-import React from 'react';
+import React from "react";
+import ReactDOM from "react-dom";
+import ReactModal from 'react-modal';
+import '../../styles/NewWallet.css'
 
-import DataGrid, {
-    Column,
-    Editing,
-    Popup,
-    Paging,
-    Lookup,
-    Form,
-} from 'devextreme-react/data-grid';
-import 'devextreme-react/text-area';
-import { Item } from 'devextreme-react/form';
+class ExampleApp extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            showModal: false
+        };
 
-const notesEditorOptions = { height: 100 };
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
+    }
 
-class EditWallet extends React.Component {
-    render() {
+    handleOpenModal () {
+        this.setState({ showModal: true });
+    }
+
+    handleCloseModal () {
+        this.setState({ showModal: false });
+    }
+
+    render () {
         return (
-            <div id="data-grid-demo">
-                <DataGrid
-                    dataSource={employees}
-                    keyExpr="ID"
-                    showBorders={true}
+            <div>
+                <button onClick={this.handleOpenModal}>Trigger Modal</button>
+                <ReactModal
+                    initWidth={10}
+                    initHeight={10}
+                    isOpen={this.state.showModal}
+                    contentLabel="Minimal Modal Example"
                 >
-                    <Paging enabled={false} />
-                    <Editing
-                        mode="popup"
-                        allowUpdating={true}
-                        allowAdding={true}
-                        allowDeleting={true}>
-                        <Popup title="Employee Info" showTitle={true} width={700} height={525} />
-                        <Form>
-                            <Item itemType="group" colCount={2} colSpan={2}>
-                                <Item dataField="FirstName" />
-                                <Item dataField="LastName" />
-                                <Item dataField="Prefix" />
-                                <Item dataField="BirthDate" />
-                                <Item dataField="Position" />
-                                <Item dataField="HireDate" />
-                                <Item
-                                    dataField="Notes"
-                                    editorType="dxTextArea"
-                                    colSpan={2}
-                                    editorOptions={notesEditorOptions} />
-                            </Item>
-
-                            <Item itemType="group" caption="Home Address" colCount={2} colSpan={2}>
-                                <Item dataField="StateID" />
-                                <Item dataField="Address" />
-                            </Item>
-                        </Form>
-                    </Editing>
-                    <Column dataField="Prefix" caption="Title" width={70} />
-                    <Column dataField="FirstName" />
-                    <Column dataField="LastName" />
-                    <Column dataField="BirthDate" dataType="date" />
-                    <Column dataField="Position" width={170} />
-                    <Column dataField="HireDate" dataType="date" />
-                    <Column dataField="StateID" caption="State" width={125}>
-                        <Lookup dataSource={states} valueExpr="ID" displayExpr="Name" />
-                    </Column>
-                    <Column dataField="Address" visible={false} />
-                    <Column dataField="Notes" visible={false} />
-                </DataGrid>
+                    <button onClick={this.handleCloseModal}>Close Modal</button>
+                </ReactModal>
             </div>
         );
     }
 }
 
-export default EditWallet;
+export default ExampleApp;

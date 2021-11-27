@@ -6,6 +6,8 @@ import { FaWallet } from "react-icons/fa";
 import { TransactionOutlined, HistoryOutlined, SettingOutlined, PlusSquareOutlined } from '@ant-design/icons';
 import WalletTable from "./WalletTable";
 import NewWalletForm from "./NewWalletForm";
+import ExampleApp from "../low_level/EditWallet";
+import Demo from "./Transaction";
 
 const { Header } = Layout;
 
@@ -25,9 +27,9 @@ class TopNav extends React.Component {
         } else if (this.state.activeFrame === 2) {
             return <div className={'otstup'}> <NewWalletForm></NewWalletForm> </div>
         } else if (this.state.activeFrame === 3) {
-            return <div className={'otstup'}>ХУЙ</div>
+            return <div className={'otstup'}><Demo className={'otstup'}></Demo></div>
         } else if (this.state.activeFrame === 4) {
-            return <div className={'otstup'}>История</div>
+            return <div className={'otstup'}>ХУЙ</div>
         } else if (this.state.activeFrame === 5) {
             return <div className={'otstup'}>Настройки</div>
         }
