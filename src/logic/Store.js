@@ -1,4 +1,3 @@
-import UrlFetchApp from 'url'
 const formIndex = 0;
 
 const nameIndex = 0;
@@ -9,6 +8,7 @@ const full_nameIndex = 3;
 const serverUrl = 'http://localhost:8080';
 const serverSubUrlSaveWallet = '/save';
 const serverGetWalletsUrl = '/wallets';
+const serverDepUrl = '/transaction/dep';
 
 function saveWalletRaw() {
     const wallet = {
@@ -18,14 +18,22 @@ function saveWalletRaw() {
         full_name: document.forms.item(formIndex).elements.item(full_nameIndex).value
     }
 
-    saveWalletToFile(wallet);
+    serverSaveWallet(wallet);
 }
 
-function saveWalletToFile(wallet) {
+function serverSaveWallet(wallet) {
+    simplePost(serverUrl + serverSubUrlSaveWallet, wallet);
+}
+
+function serverDep(values) {
+    simplePost(serverUrl + serverDepUrl, values);
+}
+
+function simplePost(url, body) {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "POST", serverUrl + serverSubUrlSaveWallet, true ); // false for synchronous request
+    xmlHttp.open( "POST", url, true ); // false for synchronous request
     xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xmlHttp.send(JSON.stringify(wallet));
+    xmlHttp.send(JSON.stringify(body));
 }
 
 function getExistWallets(callback) {
@@ -69,5 +77,8 @@ export function saveWallet() {
 
 export function getWallets(func) {
     getExistWallets(func);
-    // getExistWallets(result);
+}
+
+export function dep(func) {
+    serverDep(func);
 }

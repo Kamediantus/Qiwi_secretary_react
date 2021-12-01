@@ -69,8 +69,6 @@ class NewWalletForm extends React.Component {
     }
 
     handleChangeFio(event) {
-
-        // console.log(event.target.fioValue.toString());
         this.setState({fioValue: event.target.value});
     }
     handleSubmit(event) {

@@ -1,7 +1,7 @@
 import React from "react";
 
 import {Form, Input, Button, Select, InputNumber} from 'antd';
-// import WalletSelector from "../low_level/WalletSelector";
+import {dep} from "../../logic/Store";
 
 const serverUrl = 'http://localhost:8080';
 const serverGetWalletsUrl = '/wallets/selector';
@@ -54,6 +54,7 @@ class Demo extends React.Component {
 
     onFinish = (values) => {
         console.log(values);
+        dep(values);
     };
     onReset = () => {
         this.formRef.current.resetFields();
