@@ -29,6 +29,7 @@ class Demo extends React.Component {
             isLoaded: false,
             items: []
         };
+        this.componentDidMount = this.componentDidMount.bind(this);
     }
 
     componentDidMount() {
@@ -53,8 +54,12 @@ class Demo extends React.Component {
     formRef = React.createRef();
 
     onFinish = (values) => {
-        console.log(values);
-        dep(values);
+        if (values.from === values.to) {
+            console.log("bee");
+        } else {
+            dep(values);
+            this.componentDidMount();
+        }
     };
     onReset = () => {
         this.formRef.current.resetFields();
