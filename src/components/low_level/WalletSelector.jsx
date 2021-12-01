@@ -37,7 +37,7 @@ class WalletSelector extends React.Component {
         const {error, isLoaded, items} = this.state;
         return (
             <Select
-                mode="multiple"
+                mode="single"
                 style={{width: '100%'}}
                 placeholder="Please select"
                 // onChange={handleChange}
@@ -50,4 +50,4 @@ class WalletSelector extends React.Component {
     }
 }
 
-export default WalletSelector;
+// export default WalletSelector;

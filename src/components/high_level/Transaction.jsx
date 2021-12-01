@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Form, Input, Button, Select } from 'antd';
-import WalletSelector from "../low_level/WalletSelector";
+import {Form, Input, Button, Select, InputNumber} from 'antd';
+// import WalletSelector from "../low_level/WalletSelector";
 
 const serverUrl = 'http://localhost:8080';
-const serverGetWalletsUrl = '/wallets';
+const serverGetWalletsUrl = '/wallets/selector';
 const { Option } = Select;
 const layout = {
     labelCol: {
@@ -22,99 +22,118 @@ const tailLayout = {
 };
 
 class Demo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            error: null,
+            isLoaded: false,
+            items: []
+        };
+    }
+
+    componentDidMount() {
+        fetch(serverUrl + serverGetWalletsUrl)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        items: result
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
+
     formRef = React.createRef();
-    onGenderChange = (value) => {
-        switch (value) {
-            case 'male':
-                this.formRef.current.setFieldsValue({
-                    note: 'Hi, man!',
-                });
-                return;
 
-            case 'female':
-                this.formRef.current.setFieldsValue({
-                    note: 'Hi, lady!',
-                });
-                return;
-
-            case 'other':
-                this.formRef.current.setFieldsValue({
-                    note: 'Hi there!',
-                });
-        }
-    };
     onFinish = (values) => {
         console.log(values);
     };
     onReset = () => {
         this.formRef.current.resetFields();
     };
-    onFill = () => {
-        this.formRef.current.setFieldsValue({
-            note: 'Hello world!',
-            gender: 'male',
-        });
-    };
 
     render() {
-        return (
-            <Form {...layout} ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
-                <Form.Item
-                    name="from"
-                    label="Откуда"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <WalletSelector />
-                </Form.Item>
-                <Form.Item
-                    name="to"
-                    label="Куда"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <WalletSelector>
-                    </WalletSelector>
-                </Form.Item>
-                <Form.Item
-                    noStyle
-                    shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
-                >
-                    {({ getFieldValue }) =>
-                        getFieldValue('gender') === 'other' ? (
-                            <Form.Item
-                                name="customizeGender"
-                                label="Customize Gender"
-                                rules={[
-                                    {
-                                        required: true,
-                                    },
-                                ]}
-                            >
-                                <Input />
-                            </Form.Item>
-                        ) : null
-                    }
-                </Form.Item>
-                <Form.Item {...tailLayout}>
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
-                    <Button htmlType="button" onClick={this.onReset}>
-                        Reset
-                    </Button>
-                    <Button type="link" htmlType="button" onClick={this.onFill}>
-                        Fill form
-                    </Button>
-                </Form.Item>
-            </Form>
-        );
+        const {error, isLoaded, items} = this.state;
+        if (error) {
+            return <div>Ошибочка: У вас пока что нет сохраненных кошельков.</div>;
+        } else if (!isLoaded) {
+            return <div>Loading...</div>;
+        } else {
+            return (
+                <Form {...layout} ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
+                    <Form.Item
+                        name="from"
+                        label="Откуда"
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                    >
+                        <Select
+                            mode="single"
+                            style={{width: '100%'}}
+                            placeholder="Please select"
+                            key={'from'}
+                            // onChange={handleChange}
+                        >
+                            {items.map((value, index) => {
+                                return <Option value={index}>{value}</Option>
+                            })}
+                            {/*{items.map(item => <Option>{item}</Option>)}*/}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item
+                        name="to"
+                        label="Куда"
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                    >
+                        <Select
+                            mode="single"
+                            style={{width: '100%'}}
+                            placeholder="Please select"
+                            key={'to'}
+                            // onChange={handleChange}
+                        >
+                            {items.map((value, index) => {
+                                return <Option value={index}>{value}</Option>
+                            })}
+                            {/*{items.map(item => <Option>{item}</Option>)}*/}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item
+                        name="amount"
+                        label="Сколько:"
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}>
+                        <InputNumber key={'amount'} size={"large"} min={0} step={1000}/>
+                        {/*&nbsp;руб.*/}
+                    </Form.Item>
+                    <Form.Item {...tailLayout}>
+                        <Button type="primary" htmlType="submit">
+                            Submit
+                        </Button>
+                        <Button type="link" htmlType="button" onClick={this.onReset}>
+                            Reset
+                        </Button>
+                    </Form.Item>
+                </Form>
+            );
+        }
     }
 }
 export default Demo;

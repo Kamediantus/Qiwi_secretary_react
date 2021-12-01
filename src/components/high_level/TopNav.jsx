@@ -6,7 +6,6 @@ import { FaWallet } from "react-icons/fa";
 import { TransactionOutlined, HistoryOutlined, SettingOutlined, PlusSquareOutlined } from '@ant-design/icons';
 import WalletTable from "./WalletTable";
 import NewWalletForm from "./NewWalletForm";
-import ExampleApp from "../low_level/EditWallet";
 import Demo from "./Transaction";
 
 const { Header } = Layout;

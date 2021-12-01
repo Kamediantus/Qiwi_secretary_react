@@ -47,7 +47,7 @@ class NewWalletForm extends React.Component {
     handleChangePhone(event) {
         const value = event.target.value
         this.setState({phoneValue: value});
-        if (value.length != 11 && value.length != 0) {
+        if (value.length !== 11 && value.length !== 0) {
             this.setState({validPhone: 'false'})
         } else if (value.length === 0) {
             this.setState({validPhone: 'common'})
@@ -59,7 +59,7 @@ class NewWalletForm extends React.Component {
     handleChangeToken(event) {
         const value = event.target.value
         this.setState({tokenValue: value});
-        if (value.length != 32 && value.length != 0) {
+        if (value.length !== 32 && value.length !== 0) {
             this.setState({validToken: 'false'})
         } else if (value.length === 0) {
             this.setState({validToken: 'common'})
