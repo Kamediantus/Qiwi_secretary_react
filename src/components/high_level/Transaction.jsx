@@ -94,6 +94,7 @@ class Demo extends React.Component {
                 + ' на ' + this.state.wallets[values.to].phone + ' на сумму: ' + values.amount + ' руб.';
             alert(resultMessage);
             this.componentDidMount();
+            this.formRef.current.resetFields();
         }
     };
     onReset = () => {
