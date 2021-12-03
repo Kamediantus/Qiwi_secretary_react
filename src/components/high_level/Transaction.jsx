@@ -4,7 +4,8 @@ import {Form, Input, Button, Select, InputNumber} from 'antd';
 import {dep} from "../../logic/Store";
 
 const serverUrl = 'http://localhost:8080';
-const serverGetWalletsUrl = '/wallets/selector';
+const serverGetWalletsUrlSelector = '/wallets/selector';
+const serverGetWalletsUrl = '/wallets';
 const { Option } = Select;
 const layout = {
     labelCol: {
@@ -27,13 +28,14 @@ class Demo extends React.Component {
         this.state = {
             error: null,
             isLoaded: false,
-            items: []
+            items: [],
+            wallets: []
         };
         this.componentDidMount = this.componentDidMount.bind(this);
     }
 
     componentDidMount() {
-        fetch(serverUrl + serverGetWalletsUrl)
+        fetch(serverUrl + serverGetWalletsUrlSelector)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -49,15 +51,48 @@ class Demo extends React.Component {
                     });
                 }
             )
+
+        fetch(serverUrl + serverGetWalletsUrl)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        wallets: result
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
     }
 
     formRef = React.createRef();
 
     onFinish = (values) => {
         if (values.from === values.to) {
-            console.log("bee");
+            var resultMessage = 'Харош, зачем тебе перевод на тот же кошелек?';
+            alert(resultMessage);
+        } else if (this.state.wallets[values.from].balance === -404 && this.state.wallets[values.to].balance === -404) {
+            var resultMessage = 'Оба кошелька невалидны, проверьте токены, номера телефонов. Удостоверьтесь в том что токены обладает полными правами.';
+            alert(resultMessage);
+        } else if (this.state.wallets[values.from].balance === -404) {
+            var resultMessage = 'Кошелек отправителя невалидный, проверьте токен, номер телефона. Удостоверьтесь в том что токен обладает полными правами.';
+            alert(resultMessage);
+        } else if (this.state.wallets[values.to].balance === -404) {
+            var resultMessage = 'Кошелек получателя невалидный, проверьте токен, номер телефона. Удостоверьтесь в том что токен обладает полными правами.';
+            alert(resultMessage);
+        } else if (this.state.wallets[values.from].balance < values.amount) {
+            var resultMessage = 'Недостаточно средств для перевода. На кошельке отправителя ' + this.state.wallets[values.from].balance + ' руб.';
+            alert(resultMessage);
         } else {
             dep(values);
+            var resultMessage = 'Успешный перевод с ' + this.state.wallets[values.from].phone
+                + ' на ' + this.state.wallets[values.to].phone + ' на сумму: ' + values.amount + ' руб.';
+            alert(resultMessage);
             this.componentDidMount();
         }
     };
