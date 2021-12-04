@@ -7,6 +7,7 @@ const full_nameIndex = 3;
 
 const serverUrl = 'http://localhost:8080';
 const serverSubUrlSaveWallet = '/save';
+const serverSubUrlUpdateWallet = '/wallets/update';
 const serverGetWalletsUrl = '/wallets';
 const serverDepUrl = '/transaction/dep';
 
@@ -17,12 +18,26 @@ function saveWalletRaw() {
         token: document.forms.item(formIndex).elements.item(tokenIndex).value,
         full_name: document.forms.item(formIndex).elements.item(full_nameIndex).value
     }
-
     serverSaveWallet(wallet);
+}
+
+function updateWalletRaw(id) {
+    const wallet = {
+        name: document.forms.item(formIndex).elements.item(nameIndex).value,
+        phone: document.forms.item(formIndex).elements.item(phoneIndex).value,
+        token: document.forms.item(formIndex).elements.item(tokenIndex).value,
+        full_name: document.forms.item(formIndex).elements.item(full_nameIndex).value,
+        id: id
+    }
+    serverUpdateWallet(wallet);
 }
 
 function serverSaveWallet(wallet) {
     simplePost(serverUrl + serverSubUrlSaveWallet, wallet);
+}
+
+function serverUpdateWallet(wallet) {
+    simplePost(serverUrl + serverSubUrlUpdateWallet, wallet);
 }
 
 function serverDep(values) {
@@ -76,4 +91,8 @@ export function getWallets(func) {
 
 export function dep(func) {
     serverDep(func);
+}
+
+export function updateWallet(id) {
+    updateWalletRaw(id);
 }

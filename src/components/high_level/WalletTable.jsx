@@ -10,7 +10,7 @@ import {
     FullscreenOutlined,
     EditOutlined
 } from '@ant-design/icons';
-import {saveWallet} from "../../logic/Store";
+import {saveWallet, updateWallet} from "../../logic/Store";
 
 const serverUrl = 'http://localhost:8080';
 const serverGetWalletsUrl = '/wallets';
@@ -44,6 +44,7 @@ class WalletTable extends React.Component {
                         phoneValue: '',
                         tokenValue: '',
                         fioValue: '',
+                        idValue: '',
                         validName: 'true',
                         validPhone: 'true',
                         validToken: 'true'
@@ -110,8 +111,8 @@ class WalletTable extends React.Component {
         }
         if (resultMessage === '') {
             resultMessage += 'Кошелек с номером ' + this.state.phoneValue + ' успешно сохранен.'
+            updateWallet(this.state.idValue);
             alert(resultMessage);
-            saveWallet();
             this.setState(clearState);
         } else {
             alert(resultMessage);
@@ -125,7 +126,8 @@ class WalletTable extends React.Component {
             nameValue: record.name,
             phoneValue: record.phone,
             tokenValue: record.token,
-            fioValue: record.full_name
+            fioValue: record.full_name,
+            idValue: record.id
         });
 
         console.log(this.state.record);
@@ -242,9 +244,7 @@ class WalletTable extends React.Component {
                             width: 70,
                             render: () => <a>
                                 <Button shape={'round'} color={'green'} type={'primary'} block>
-
                                     Открыть
-
                                     <FullscreenOutlined/>
                                 </Button>
                             </a>,
@@ -260,7 +260,7 @@ class WalletTable extends React.Component {
                                     Править
                                     <EditOutlined/>
                                 </Button>
-                                <Modal title="Basic Modal" visible={this.state.isModalVisible} onOk={this.handleOk} onCancel={this.handleCancel}
+                                <Modal title={"Изменение данных кошелька.  ID:" + this.state.idValue}  visible={this.state.isModalVisible} onOk={this.handleOk} onCancel={this.handleCancel}
                                        width={800}>
                                     <div>
                                         <Form>
