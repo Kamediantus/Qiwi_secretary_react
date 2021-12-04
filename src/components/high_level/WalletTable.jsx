@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import '../../styles/App.css'
 import '../../styles/WalletTable.css'
-import {Button, Table} from 'antd';
+import {Modal, Button, Table} from 'antd';
 import {
     CaretUpFilled,
     CaretDownFilled,
@@ -18,108 +18,113 @@ function myFunction() {
     popup.classList.toggle("show");
 }
 
-const columns = [
-    {
-        title: 'Id',
-        width: 30,
-        dataIndex: 'id',
-        key: 'id',
-        fixed: 'left',
-    },
-    {
-        title: 'Имя',
-        width: 80,
-        dataIndex: 'name',
-        key: 'name',
-        fixed: 'left',
-    },
-    {
-        title: 'Телефон',
-        width: 60,
-        dataIndex: 'phone',
-        key: 'phone',
-        fixed: 'left',
-    },
-    {
-        title: 'Баланс',
-        dataIndex: 'balance',
-        key: 'balance',
-        width: 80,
-        render(text, record) {
-            return {
-                props: {
-                    // style: {background: parseInt(text) === -404 ? "red" : "green"}
-                },
-                children: parseInt(text) === -404 ?
-                    <div className="popup" onClick={myFunction}>Что-то не так(
-                        <span className="popuptext" id="myPopup">Проверьте введенный номер телефона и API токен.</span>
-                    </div>
-                    :
-                    <div>{text}</div>
-            }}},
-    {
-        title: 'ФИО',
-        dataIndex: 'full_name',
-        key: '2',
-        width: 150,
-    },
-    {
-        title: 'API токен',
-        dataIndex: 'token',
-        key: '2',
-        width: 150,
-    },
-    {
-        title: 'Депозит',
-        key: 'operationDeposit',
-        fixed: 'right',
-        width: 70,
-        render: () => <a>
-            <Button shape={'round'} color={'green'} type={'primary'} block>
-                Депозит
-                <CaretDownFilled/>
-            </Button>
-        </a>,
-    },
-    {
-        title: 'Списание',
-        key: 'operationWithdrawal',
-        fixed: 'right',
-        width: 70,
-        render: () => <a>
-            <Button shape={'round'} color={'green'} type={'primary'} block>
-                Списание
-                <CaretUpFilled/>
-            </Button>
-        </a>,
-    },
-    {
-        title: 'Открыть в новом окне',
-        key: 'operationOpenWallet',
-        fixed: 'right',
-        width: 70,
-        render: () => <a>
-            <Button shape={'round'} color={'green'} type={'primary'} block>
-
-                Открыть
-
-                <FullscreenOutlined/>
-            </Button>
-        </a>,
-    },
-    {
-        title: 'Править',
-        key: 'operationEditWallet',
-        fixed: 'right',
-        width: 70,
-        render: () => <a>
-            <Button shape={'round'} color={'green'} type={'primary'} block>
-
-                Править
-                <EditOutlined/>
-            </Button>
-        </a>
-}];
+// const columns = [
+//     {
+//         title: 'Id',
+//         width: 30,
+//         dataIndex: 'id',
+//         key: 'id',
+//         fixed: 'left',
+//     },
+//     {
+//         title: 'Имя',
+//         width: 80,
+//         dataIndex: 'name',
+//         key: 'name',
+//         fixed: 'left',
+//     },
+//     {
+//         title: 'Телефон',
+//         width: 60,
+//         dataIndex: 'phone',
+//         key: 'phone',
+//         fixed: 'left',
+//     },
+//     {
+//         title: 'Баланс',
+//         dataIndex: 'balance',
+//         key: 'balance',
+//         width: 80,
+//         render(text, record) {
+//             return {
+//                 props: {
+//                     // style: {background: parseInt(text) === -404 ? "red" : "green"}
+//                 },
+//                 children: parseInt(text) === -404 ?
+//                     <div className="popup" onClick={myFunction}>Что-то не так(
+//                         <span className="popuptext" id="myPopup">Проверьте введенный номер телефона и API токен.</span>
+//                     </div>
+//                     :
+//                     <div>{text}</div>
+//             }}},
+//     {
+//         title: 'ФИО',
+//         dataIndex: 'full_name',
+//         key: '2',
+//         width: 150,
+//     },
+//     {
+//         title: 'API токен',
+//         dataIndex: 'token',
+//         key: '2',
+//         width: 150,
+//     },
+//     {
+//         title: 'Депозит',
+//         key: 'operationDeposit',
+//         fixed: 'right',
+//         width: 70,
+//         render: () => <a>
+//             <Button shape={'round'} color={'green'} type={'primary'} block>
+//                 Депозит
+//                 <CaretDownFilled/>
+//             </Button>
+//         </a>,
+//     },
+//     {
+//         title: 'Списание',
+//         key: 'operationWithdrawal',
+//         fixed: 'right',
+//         width: 70,
+//         render: () => <a>
+//             <Button shape={'round'} color={'green'} type={'primary'} block>
+//                 Списание
+//                 <CaretUpFilled/>
+//             </Button>
+//         </a>,
+//     },
+//     {
+//         title: 'Открыть в новом окне',
+//         key: 'operationOpenWallet',
+//         fixed: 'right',
+//         width: 70,
+//         render: () => <a>
+//             <Button shape={'round'} color={'green'} type={'primary'} block>
+//
+//                 Открыть
+//
+//                 <FullscreenOutlined/>
+//             </Button>
+//         </a>,
+//     },
+//     {
+//         title: 'Править',
+//         key: 'operationEditWallet',
+//         fixed: 'right',
+//         width: 70,
+//         render: () => <a>
+//             <Button shape={'round'} color={'green'} type={'primary'} onClick={this.showModal}>
+//
+//                 Править
+//                 <EditOutlined/>
+//             </Button>
+//             <Modal title="Basic Modal" visible={this.isModalVisible} onOk={this.handleOk} onCancel={this.handleCancel}>
+//                 <p>Some contents...</p>
+//                 <p>Some contents...</p>
+//                 <p>Some contents...</p>
+//             </Modal>
+//         </a>
+// }];
 
 class WalletTable extends React.Component {
        constructor(props) {
@@ -127,11 +132,25 @@ class WalletTable extends React.Component {
                     this.state = {
                         error: null,
                         isLoaded: false,
-                        items: []
+                        items: [],
+                        isModalVisible: false
                     };
-                }
+           this.showModal = this.showModal.bind(this);
+           this.handleOk = this.handleOk.bind(this);
+           this.handleCancel = this.handleCancel.bind(this);
+       }
 
-                // handleErrorInfo()
+    showModal (event) {
+        this.setState({isModalVisible: true});
+    };
+
+    handleOk (event) {
+        this.setState({isModalVisible: false});
+    };
+
+    handleCancel (event) {
+        this.setState({isModalVisible: false});
+    };
 
                 componentDidMount() {
                     fetch(serverUrl + serverGetWalletsUrl)
@@ -143,9 +162,6 @@ class WalletTable extends React.Component {
                                     items: result
                                 });
                             },
-                            // Note: it's important to handle errors here
-                            // instead of a catch() block so that we don't swallow
-                            // exceptions from actual bugs in components.
                             (error) => {
                                 this.setState({
                                     isLoaded: true,
@@ -156,6 +172,113 @@ class WalletTable extends React.Component {
                 }
 
                 render() {
+                    var columns = [
+                        {
+                            title: 'Id',
+                            width: 30,
+                            dataIndex: 'id',
+                            key: 'id',
+                            fixed: 'left',
+                        },
+                        {
+                            title: 'Имя',
+                            width: 80,
+                            dataIndex: 'name',
+                            key: 'name',
+                            fixed: 'left',
+                        },
+                        {
+                            title: 'Телефон',
+                            width: 60,
+                            dataIndex: 'phone',
+                            key: 'phone',
+                            fixed: 'left',
+                        },
+                        {
+                            title: 'Баланс',
+                            dataIndex: 'balance',
+                            key: 'balance',
+                            width: 80,
+                            render(text, record) {
+                                return {
+                                    props: {
+                                        // style: {background: parseInt(text) === -404 ? "red" : "green"}
+                                    },
+                                    children: parseInt(text) === -404 ?
+                                        <div className="popup" onClick={myFunction}>Что-то не так(
+                                            <span className="popuptext" id="myPopup">Проверьте введенный номер телефона и API токен.</span>
+                                        </div>
+                                        :
+                                        <div>{text}</div>
+                                }}},
+                        {
+                            title: 'ФИО',
+                            dataIndex: 'full_name',
+                            key: '2',
+                            width: 150,
+                        },
+                        {
+                            title: 'API токен',
+                            dataIndex: 'token',
+                            key: '2',
+                            width: 150,
+                        },
+                        {
+                            title: 'Депозит',
+                            key: 'operationDeposit',
+                            fixed: 'right',
+                            width: 70,
+                            render: () => <a>
+                                <Button shape={'round'} color={'green'} type={'primary'} block>
+                                    Депозит
+                                    <CaretDownFilled/>
+                                </Button>
+                            </a>,
+                        },
+                        {
+                            title: 'Списание',
+                            key: 'operationWithdrawal',
+                            fixed: 'right',
+                            width: 70,
+                            render: () => <a>
+                                <Button shape={'round'} color={'green'} type={'primary'} block>
+                                    Списание
+                                    <CaretUpFilled/>
+                                </Button>
+                            </a>,
+                        },
+                        {
+                            title: 'Открыть в новом окне',
+                            key: 'operationOpenWallet',
+                            fixed: 'right',
+                            width: 70,
+                            render: () => <a>
+                                <Button shape={'round'} color={'green'} type={'primary'} block>
+
+                                    Открыть
+
+                                    <FullscreenOutlined/>
+                                </Button>
+                            </a>,
+                        },
+                        {
+                            title: 'Править',
+                            key: 'operationEditWallet',
+                            fixed: 'right',
+                            width: 70,
+                            render: () => <a>
+                                <Button shape={'round'} color={'green'} type={'primary'} onClick={this.showModal}>
+
+                                    Править
+                                    <EditOutlined/>
+                                </Button>
+                                <Modal title="Basic Modal" visible={this.state.isModalVisible} onOk={this.handleOk} onCancel={this.handleCancel}>
+                                    <p>Some contents...</p>
+                                    <p>Some contents...</p>
+                                    <p>Some contents...</p>
+                                </Modal>
+                            </a>
+                        }];
                     const {error, isLoaded, items} = this.state;
                     if (error) {
                         return <div>Ошибочка: У вас пока что нет сохраненных кошельков.</div>;
