@@ -31,10 +31,6 @@ class EditWalletForm extends React.Component {
             validToken: 'common'
         }
 
-        this.nameRef = React.createRef();
-        this.phoneRef = React.createRef();
-        this.tokenRef = React.createRef();
-
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangePhone = this.handleChangePhone.bind(this);
         this.handleChangeToken = this.handleChangeToken.bind(this);
@@ -110,7 +106,6 @@ class EditWalletForm extends React.Component {
                     <Form.Item label="Имя   ">
                         <Input id='displayName'
                                placeholder="Имя кошелька для внутреннего обозначения"
-                               ref = {this.nameRef}
                                value={nameValue}
                                className={'antd-input ' + (this.state.validName === 'common' ? null : this.state.validName === 'true' ? 'norm' : 'warning')}
                                onChange={this.handleChangeName}
@@ -118,7 +113,6 @@ class EditWalletForm extends React.Component {
                     </Form.Item>
                     <Form.Item  label="Телефон">
                         <Input id='phone'
-                               ref = {this.phoneRef}
                                placeholder="Номер телефона начиная с 7"
                                value={phoneValue}
                                className={'antd-input ' + (this.state.validPhone === 'common' ? null : this.state.validPhone === 'true' ? 'norm' : 'warning')}
@@ -128,7 +122,6 @@ class EditWalletForm extends React.Component {
                     <Form.Item label="API Токен">
                         <Input id='token'
                                placeholder="API токен киви кошелька"
-                               ref = {this.tokenRef}
                                value={tokenValue}
                                className={'antd-input ' + (this.state.validToken === 'common' ? null : this.state.validToken === 'true' ? 'norm' : 'warning')}
                                onChange={this.handleChangeToken}

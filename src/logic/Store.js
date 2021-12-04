@@ -59,13 +59,8 @@ function getBalance(callback) {
     function foo(callback) {
         var httpRequest = new XMLHttpRequest();
         httpRequest.responseType = 'json';
-        // httpRequest.open('GET', serverUrl + serverGetWalletsUrl);
         httpRequest.onreadystatechange = function () {
-            // if (httpRequest.readyState === 4) { // request is done
-            //     if (httpRequest.status === 200) { // successfully
-                    callback(httpRequest.response); // we're calling our method
-                // }
-            // }
+                    callback(httpRequest.response);
         };
         httpRequest.open('GET', serverUrl + serverGetWalletsUrl);
         httpRequest.send();
