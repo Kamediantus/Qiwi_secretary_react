@@ -4,7 +4,7 @@ import {Button, Form, Input} from "antd";
 import '../../styles/NewWallet.css'
 import {saveWallet} from "../../logic/Store";
 
-const clearState = {
+const editState = {
     nameValue: '',
     phoneValue: '',
     tokenValue: '',
@@ -17,9 +17,19 @@ const clearState = {
 
 class EditWalletForm extends React.Component {
 
-    constructor(props) {
+    constructor(props, record) {
         super(props);
-        this.state = clearState;
+        console.log(this.props.record);
+        this.state = {
+            nameValue: this.props.record.name,
+            phoneValue: this.props.record.phone,
+            tokenValue: this.props.record.token,
+            fioValue: this.props.record.full_name,
+
+            validName: 'common',
+            validPhone: 'common',
+            validToken: 'common'
+        }
 
         this.nameRef = React.createRef();
         this.phoneRef = React.createRef();
@@ -86,13 +96,14 @@ class EditWalletForm extends React.Component {
             resultMessage += 'Кошелек с номером ' + this.state.phoneValue + ' успешно сохранен.'
             alert(resultMessage);
             saveWallet();
-            this.setState(clearState);
+            this.setState(editState);
         } else {
             alert(resultMessage);
         }
     }
 
     render() {
+        const {nameValue, phoneValue, tokenValue, fioValue} = this.state;
         return (
             <div>
                 <Form>
@@ -100,7 +111,7 @@ class EditWalletForm extends React.Component {
                         <Input id='displayName'
                                placeholder="Имя кошелька для внутреннего обозначения"
                                ref = {this.nameRef}
-                               value={this.state.nameValue}
+                               value={nameValue}
                                className={'antd-input ' + (this.state.validName === 'common' ? null : this.state.validName === 'true' ? 'norm' : 'warning')}
                                onChange={this.handleChangeName}
                         />
@@ -109,7 +120,7 @@ class EditWalletForm extends React.Component {
                         <Input id='phone'
                                ref = {this.phoneRef}
                                placeholder="Номер телефона начиная с 7"
-                               value={this.state.phoneValue}
+                               value={phoneValue}
                                className={'antd-input ' + (this.state.validPhone === 'common' ? null : this.state.validPhone === 'true' ? 'norm' : 'warning')}
                                onChange={this.handleChangePhone}
                         />
@@ -118,14 +129,14 @@ class EditWalletForm extends React.Component {
                         <Input id='token'
                                placeholder="API токен киви кошелька"
                                ref = {this.tokenRef}
-                               value={this.state.tokenValue}
+                               value={tokenValue}
                                className={'antd-input ' + (this.state.validToken === 'common' ? null : this.state.validToken === 'true' ? 'norm' : 'warning')}
                                onChange={this.handleChangeToken}
                         />
                     </Form.Item>
                     <Form.Item id='fio' label="ФИО">
                         <Input placeholder="ФИО, необязательное поле"
-                               value={this.state.fioValue} onChange={this.handleChangeFio}
+                               value={fioValue} onChange={this.handleChangeFio}
                         />
                     </Form.Item>
                     <Form.Item>
