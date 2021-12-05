@@ -3,14 +3,14 @@ import 'antd/dist/antd.css';
 import '../../styles/App.css'
 import '../../styles/WalletTable.css'
 import '../../styles/NewWallet.css'
-import {Modal, Button, Table, Form, Input} from 'antd';
+import {message, Modal, Button, Table, Form, Input} from 'antd';
 import {
     DeleteOutlined,
     CaretDownFilled,
     FullscreenOutlined,
     EditOutlined
 } from '@ant-design/icons';
-import {updateWallet} from "../../logic/Store";
+import {deleteWallet, updateWallet} from "../../logic/Store";
 
 const serverUrl = 'http://localhost:8080';
 const serverGetWalletsUrl = '/wallets';
@@ -63,6 +63,7 @@ class WalletTable extends React.Component {
            this.handleChangeToken = this.handleChangeToken.bind(this);
            this.handleChangeFio = this.handleChangeFio.bind(this);
            this.handleSubmit = this.handleSubmit.bind(this);
+           this.handlePushDelete = this.handlePushDelete.bind(this);
        }
     handleChangeName(event) {
         const value = event.target.value
@@ -117,10 +118,10 @@ class WalletTable extends React.Component {
         if (resultMessage === '') {
             resultMessage += 'Кошелек с номером ' + this.state.phoneValue + ' успешно обновлен.'
             updateWallet(this.state.idValue);
-            alert(resultMessage);
+            message.info(resultMessage);
             this.setState(clearState);
         } else {
-            alert(resultMessage);
+            message.info(resultMessage);
         }
     }
 
@@ -160,9 +161,11 @@ class WalletTable extends React.Component {
         this.setState({isModalDeleteVisible: false});
     };
 
-    pushDelete (record) {
-        console.log('push delete');
-        console.log(record);
+    handlePushDelete (record) {
+        var resultMessage = 'Кошелек с номером ' + this.state.deleteRecord.phone + ' успешно удален.'
+        deleteWallet(this.state.deleteRecordId);
+        message.info(resultMessage);
+        this.setState({isModalDeleteVisible: false});
     };
 
                 componentDidMount() {
@@ -301,18 +304,13 @@ class WalletTable extends React.Component {
                                     Удалить
                                     <DeleteOutlined />
                                 </Button>
-                                <Modal title={"Удаление кошелька.  ID:" + this.state.deleteRecordId}  visible={this.state.isModalDeleteVisible} onOk={this.handleDeleteOk} onCancel={this.handleDeleteCancel}
-                                       width={800}>
+                                <Modal title={"Удаление кошелька.  ID:" + this.state.deleteRecordId}  visible={this.state.isModalDeleteVisible} onOk={() => this.handlePushDelete(record)} onCancel={this.handleDeleteCancel}
+                                       width={800} okType={'danger'}>
                                     <div>
                                         <div>{this.state.deleteRecord.name}</div>
                                         <div>{this.state.deleteRecord.phone}</div>
                                         <div>{this.state.deleteRecord.token}</div>
                                         <div>{this.state.deleteRecord.full_name}</div>
-                                        <Button shape={'round'} color={'red'} type={'primary'} danger={'true'} block
-                                                onClick={() => this.pushDelete(record)}>
-                                            Удалить, больше предупреждений не будет
-                                            <DeleteOutlined />
-                                        </Button>
                                     </div>
                                 </Modal>
                             </a>,

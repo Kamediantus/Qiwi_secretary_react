@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Form, Input, Button, Select, InputNumber} from 'antd';
+import {Form, Input, Button, Select, InputNumber, message} from 'antd';
 import {dep} from "../../logic/Store";
 
 const serverUrl = 'http://localhost:8080';
@@ -75,24 +75,24 @@ class Demo extends React.Component {
     onFinish = (values) => {
         if (values.from === values.to) {
             var resultMessage = 'Харош, зачем тебе перевод на тот же кошелек?';
-            alert(resultMessage);
+            message.warn(resultMessage);
         } else if (this.state.wallets[values.from].balance === -404 && this.state.wallets[values.to].balance === -404) {
             var resultMessage = 'Оба кошелька невалидны, проверьте токены, номера телефонов. Удостоверьтесь в том что токены обладает полными правами.';
-            alert(resultMessage);
+            message.warn(resultMessage);
         } else if (this.state.wallets[values.from].balance === -404) {
             var resultMessage = 'Кошелек отправителя невалидный, проверьте токен, номер телефона. Удостоверьтесь в том что токен обладает полными правами.';
-            alert(resultMessage);
+            message.warn(resultMessage);
         } else if (this.state.wallets[values.to].balance === -404) {
             var resultMessage = 'Кошелек получателя невалидный, проверьте токен, номер телефона. Удостоверьтесь в том что токен обладает полными правами.';
-            alert(resultMessage);
+            message.warn(resultMessage);
         } else if (this.state.wallets[values.from].balance < values.amount) {
             var resultMessage = 'Недостаточно средств для перевода. На кошельке отправителя ' + this.state.wallets[values.from].balance + ' руб.';
-            alert(resultMessage);
+            message.warn(resultMessage);
         } else {
             dep(values);
             var resultMessage = 'Успешный перевод с ' + this.state.wallets[values.from].phone
                 + ' на ' + this.state.wallets[values.to].phone + ' на сумму: ' + values.amount + ' руб.';
-            alert(resultMessage);
+            message.success(resultMessage);
             this.componentDidMount();
             this.formRef.current.resetFields();
         }

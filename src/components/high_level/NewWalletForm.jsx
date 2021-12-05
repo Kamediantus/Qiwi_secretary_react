@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import {Button, Form, Input} from "antd";
+import {Button, Form, Input, message} from "antd";
 import '../../styles/NewWallet.css'
 import {saveWallet} from "../../logic/Store";
 
@@ -84,11 +84,11 @@ class NewWalletForm extends React.Component {
         }
         if (resultMessage === '') {
             resultMessage += 'Кошелек с номером ' + this.state.phoneValue + ' успешно сохранен.'
-            alert(resultMessage);
+            message.info(resultMessage);
             saveWallet();
             this.setState(clearState);
         } else {
-            alert(resultMessage);
+            message.info(resultMessage);
         }
     }
 
