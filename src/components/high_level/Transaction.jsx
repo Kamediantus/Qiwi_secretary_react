@@ -124,12 +124,11 @@ class Demo extends React.Component {
                             style={{width: '100%'}}
                             placeholder="Please select"
                             key={'from'}
-                            // onChange={handleChange}
                         >
-                            {items.map((value, index) => {
-                                return <Option value={index}>{value}</Option>
-                            })}
-                            {/*{items.map(item => <Option>{item}</Option>)}*/}
+                            {/*{items.map((value, index) => {*/}
+                            {/*    return <Option value={index}>{value}</Option>*/}
+                            {/*})}*/}
+                            {items.map((value, index) => <Option value={index}>{value}</Option>)}
                         </Select>
                     </Form.Item>
                     <Form.Item
@@ -146,12 +145,11 @@ class Demo extends React.Component {
                             style={{width: '100%'}}
                             placeholder="Please select"
                             key={'to'}
-                            // onChange={handleChange}
                         >
-                            {items.map((value, index) => {
-                                return <Option value={index}>{value}</Option>
-                            })}
-                            {/*{items.map(item => <Option>{item}</Option>)}*/}
+                            {/*{items.map((value, index) => {*/}
+                            {/*    return <Option value={index}>{value}</Option>*/}
+                            {/*})}*/}
+                            {items.map((value, index) => <Option value={index}>{value}</Option>)}
                         </Select>
                     </Form.Item>
                     <Form.Item
@@ -163,7 +161,6 @@ class Demo extends React.Component {
                             },
                         ]}>
                         <InputNumber key={'amount'} size={"large"} min={0} step={1000}/>
-                        {/*&nbsp;руб.*/}
                     </Form.Item>
                     <Form.Item {...tailLayout}>
                         <Button type="primary" htmlType="submit">

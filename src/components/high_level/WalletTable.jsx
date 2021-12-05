@@ -5,12 +5,12 @@ import '../../styles/WalletTable.css'
 import '../../styles/NewWallet.css'
 import {Modal, Button, Table, Form, Input} from 'antd';
 import {
-    CaretUpFilled,
+    DeleteOutlined,
     CaretDownFilled,
     FullscreenOutlined,
     EditOutlined
 } from '@ant-design/icons';
-import {saveWallet, updateWallet} from "../../logic/Store";
+import {updateWallet} from "../../logic/Store";
 
 const serverUrl = 'http://localhost:8080';
 const serverGetWalletsUrl = '/wallets';
@@ -38,7 +38,8 @@ class WalletTable extends React.Component {
                         error: null,
                         isLoaded: false,
                         items: [],
-                        isModalVisible: false,
+                        isModalEditVisible: false,
+                        isModalDeleteVisible: false,
                         record : {},
                         nameValue: '',
                         phoneValue: '',
@@ -47,12 +48,16 @@ class WalletTable extends React.Component {
                         idValue: '',
                         validName: 'true',
                         validPhone: 'true',
-                        validToken: 'true'
+                        validToken: 'true',
+                        deleteRecord: {},
+                        deleteRecordId: null
                     };
 
            this.showModal = this.showModal.bind(this);
            this.handleOk = this.handleOk.bind(this);
+           this.handleDeleteOk = this.handleDeleteOk.bind(this);
            this.handleCancel = this.handleCancel.bind(this);
+           this.handleDeleteCancel = this.handleDeleteCancel.bind(this);
            this.handleChangeName = this.handleChangeName.bind(this);
            this.handleChangePhone = this.handleChangePhone.bind(this);
            this.handleChangeToken = this.handleChangeToken.bind(this);
@@ -110,7 +115,7 @@ class WalletTable extends React.Component {
             resultMessage += 'API токен должен быть длинной в 32 символа.\n';
         }
         if (resultMessage === '') {
-            resultMessage += 'Кошелек с номером ' + this.state.phoneValue + ' успешно сохранен.'
+            resultMessage += 'Кошелек с номером ' + this.state.phoneValue + ' успешно обновлен.'
             updateWallet(this.state.idValue);
             alert(resultMessage);
             this.setState(clearState);
@@ -120,7 +125,6 @@ class WalletTable extends React.Component {
     }
 
     showModal (record) {
-        console.log(record);
         this.setState({record: record});
         this.setState({
             nameValue: record.name,
@@ -129,17 +133,36 @@ class WalletTable extends React.Component {
             fioValue: record.full_name,
             idValue: record.id
         });
-
-        console.log(this.state.record);
-        this.setState({isModalVisible: true});
+        this.setState({isModalEditVisible: true});
     };
 
+    showDeleteModal(record) {
+        this.setState({deleteRecord: record});
+        this.setState({
+            deleteRecordId: record.id
+        });
+        this.setState({isModalDeleteVisible: true});
+    }
+
     handleOk (event) {
-        this.setState({isModalVisible: false});
+        this.setState({isModalEditVisible: false});
     };
 
     handleCancel (event) {
-        this.setState({isModalVisible: false});
+        this.setState({isModalEditVisible: false});
+    };
+
+    handleDeleteOk (event) {
+        this.setState({isModalDeleteVisible: false});
+    };
+
+    handleDeleteCancel (event) {
+        this.setState({isModalDeleteVisible: false});
+    };
+
+    pushDelete (record) {
+        console.log('push delete');
+        console.log(record);
     };
 
                 componentDidMount() {
@@ -214,53 +237,17 @@ class WalletTable extends React.Component {
                             width: 150,
                         },
                         {
-                            title: 'Депозит',
-                            key: 'operationDeposit',
-                            fixed: 'right',
-                            width: 70,
-                            render: () => <a>
-                                <Button shape={'round'} color={'green'} type={'primary'} block>
-                                    Депозит
-                                    <CaretDownFilled/>
-                                </Button>
-                            </a>,
-                        },
-                        {
-                            title: 'Списание',
-                            key: 'operationWithdrawal',
-                            fixed: 'right',
-                            width: 70,
-                            render: () => <a>
-                                <Button shape={'round'} color={'green'} type={'primary'} block>
-                                    Списание
-                                    <CaretUpFilled/>
-                                </Button>
-                            </a>,
-                        },
-                        {
-                            title: 'Открыть в новом окне',
-                            key: 'operationOpenWallet',
-                            fixed: 'right',
-                            width: 70,
-                            render: () => <a>
-                                <Button shape={'round'} color={'green'} type={'primary'} block>
-                                    Открыть
-                                    <FullscreenOutlined/>
-                                </Button>
-                            </a>,
-                        },
-                        {
                             title: 'Править',
                             key: 'operationEditWallet',
                             fixed: 'right',
                             width: 70,
                             render: (index, record) => <a>
-                                <Button shape={'round'} color={'green'} type={'primary'}
+                                <Button shape={'round'} color={'green'} type={'primary'} block
                                         onClick={() => this.showModal(record)}>
                                     Править
                                     <EditOutlined/>
                                 </Button>
-                                <Modal title={"Изменение данных кошелька.  ID:" + this.state.idValue}  visible={this.state.isModalVisible} onOk={this.handleOk} onCancel={this.handleCancel}
+                                <Modal title={"Изменение данных кошелька.  ID:" + this.state.idValue}  visible={this.state.isModalEditVisible} onOk={this.handleOk} onCancel={this.handleCancel}
                                        width={800}>
                                     <div>
                                         <Form>
@@ -302,6 +289,33 @@ class WalletTable extends React.Component {
                                     </div>
                                 </Modal>
                             </a>
+                        },
+                    {
+                            title: 'Удалить',
+                            key: 'operationDelete',
+                            fixed: 'right',
+                            width: 70,
+                            render: (index, record) => <a>
+                                <Button shape={'round'} color={'red'} type={'primary'} danger={'true'} block
+                                        onClick={() => this.showDeleteModal(record)}>
+                                    Удалить
+                                    <DeleteOutlined />
+                                </Button>
+                                <Modal title={"Удаление кошелька.  ID:" + this.state.deleteRecordId}  visible={this.state.isModalDeleteVisible} onOk={this.handleDeleteOk} onCancel={this.handleDeleteCancel}
+                                       width={800}>
+                                    <div>
+                                        <div>{this.state.deleteRecord.name}</div>
+                                        <div>{this.state.deleteRecord.phone}</div>
+                                        <div>{this.state.deleteRecord.token}</div>
+                                        <div>{this.state.deleteRecord.full_name}</div>
+                                        <Button shape={'round'} color={'red'} type={'primary'} danger={'true'} block
+                                                onClick={() => this.pushDelete(record)}>
+                                            Удалить, больше предупреждений не будет
+                                            <DeleteOutlined />
+                                        </Button>
+                                    </div>
+                                </Modal>
+                            </a>,
                         }];
                     const {error, isLoaded, items} = this.state;
                     if (error) {
