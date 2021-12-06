@@ -20,6 +20,10 @@ function myFunction() {
     popup.classList.toggle("show");
 }
 
+function showWarn () {
+    message.warning('Не удалось получить ответ от Qiwi API. Проверьте телефон и токен. ', 4);
+};
+
 const clearState = {
     nameValue: '',
     phoneValue: '',
@@ -99,6 +103,10 @@ class WalletTable extends React.Component {
         } else {
             this.setState({validToken: 'true'})
         }
+    }
+
+    enterLoading = index => {
+        message.warning('bla bla bla' + index);
     }
 
     handleChangeFio(event) {
@@ -221,9 +229,12 @@ class WalletTable extends React.Component {
                                         // style: {background: parseInt(text) === -404 ? "red" : "green"}
                                     },
                                     children: parseInt(text) === -404 ?
-                                        <div className="popup" onClick={myFunction}>Что-то не так(
-                                            <span className="popuptext" id="myPopup">Проверьте введенный номер телефона и API токен.</span>
-                                        </div>
+                                        <Button
+                                            type="primary"
+                                            onClick={() => showWarn()}
+                                        >
+                                            Ошибка..
+                                        </Button>
                                         :
                                         <div>{text}</div>
                                 }}},
@@ -299,7 +310,7 @@ class WalletTable extends React.Component {
                             fixed: 'right',
                             width: 70,
                             render: (index, record) => <a>
-                                <Button shape={'round'} color={'red'} type={'primary'} danger={'true'} block
+                                <Button  shape={'round'} color={'green'} type={'primary'} block
                                         onClick={() => this.showDeleteModal(record)}>
                                     Удалить
                                     <DeleteOutlined />

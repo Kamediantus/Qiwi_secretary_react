@@ -120,14 +120,18 @@ class Demo extends React.Component {
                         ]}
                     >
                         <Select
-                            mode="single"
-                            style={{width: '100%'}}
-                            placeholder="Please select"
+                            showSearch
+                            style={{ width: '90%' }}
+                            placeholder="Search to Select"
+                            optionFilterProp="children"
+                            filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                            filterSort={(optionA, optionB) =>
+                                optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                            }
                             key={'from'}
                         >
-                            {/*{items.map((value, index) => {*/}
-                            {/*    return <Option value={index}>{value}</Option>*/}
-                            {/*})}*/}
                             {items.map((value, index) => <Option value={index}>{value}</Option>)}
                         </Select>
                     </Form.Item>
@@ -141,14 +145,18 @@ class Demo extends React.Component {
                         ]}
                     >
                         <Select
-                            mode="single"
-                            style={{width: '100%'}}
-                            placeholder="Please select"
+                            showSearch
+                            style={{ width: '90%' }}
+                            placeholder="Search to Select"
+                            optionFilterProp="children"
+                            filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                            filterSort={(optionA, optionB) =>
+                                optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                            }
                             key={'to'}
                         >
-                            {/*{items.map((value, index) => {*/}
-                            {/*    return <Option value={index}>{value}</Option>*/}
-                            {/*})}*/}
                             {items.map((value, index) => <Option value={index}>{value}</Option>)}
                         </Select>
                     </Form.Item>

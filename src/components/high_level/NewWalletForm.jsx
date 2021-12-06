@@ -73,13 +73,13 @@ class NewWalletForm extends React.Component {
     }
     handleSubmit(event) {
         let resultMessage = '';
-        if (this.state.validName === 'false') {
+        if (this.state.validName === 'false' || this.state.validName === 'common') {
             resultMessage += 'Имя должно быть длиннее 3-х символов. \n';
         }
-        if (this.state.validPhone === 'false') {
+        if (this.state.validPhone === 'false' || this.state.validPhone === 'common') {
             resultMessage += 'Номер телефона должен содержать 11 символов и начинаться с "7". \n';
         }
-        if (this.state.validToken === 'false') {
+        if (this.state.validToken === 'false' || this.state.validToken === 'common') {
             resultMessage += 'API токен должен быть длинной в 32 символа.\n';
         }
         if (resultMessage === '') {
