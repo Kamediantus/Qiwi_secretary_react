@@ -8,7 +8,7 @@ import {
     DeleteOutlined,
     EditOutlined
 } from '@ant-design/icons';
-import {deleteWallet, updateWallet} from "../../logic/Store";
+import {deleteWallet, payAllBills, updateWallet} from "../../logic/Store";
 import BillsList from "../trash/BillsList";
 
 const serverUrl = 'http://localhost:8080';
@@ -180,6 +180,7 @@ class WalletTable extends React.Component {
 
     handleBillPayAll (event) {
         this.setState({isModalBillVisible: false});
+        payAllBills(this.state.billWallet)
     };
 
     handleBillCancel (event) {

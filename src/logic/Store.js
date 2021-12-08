@@ -10,6 +10,7 @@ const serverSubUrlSaveWallet = '/save';
 const serverSubUrlUpdateWallet = '/wallets/update';
 const serverSubUrlDeleteWallet = '/wallets/delete';
 const serverSubUrlPayBill = '/bills/pay';
+const serverSubUrlPayAllBills = '/bills/payAll';
 const serverGetWalletsUrl = '/wallets';
 const serverDepUrl = '/transaction/dep';
 
@@ -29,6 +30,10 @@ function serverSaveWallet(wallet) {
 
 function payBillRaw(record) {
     simplePost(serverUrl + serverSubUrlPayBill, record);
+}
+
+function payAllBillsRaw(record) {
+    simplePost(serverUrl + serverSubUrlPayAllBills, record);
 }
 
 function updateWalletRaw(id) {
@@ -120,4 +125,8 @@ export function deleteWallet(id) {
 
 export function payBill(record) {
     payBillRaw(record);
+}
+
+export function payAllBills(record) {
+    payAllBillsRaw(record);
 }
