@@ -7,6 +7,7 @@ import { TransactionOutlined, HistoryOutlined, SettingOutlined, PlusSquareOutlin
 import WalletTable from "./WalletTable";
 import NewWalletForm from "./NewWalletForm";
 import Demo from "./Transaction";
+import Content from "../trash/BillsList";
 
 const { Header } = Layout;
 
@@ -28,7 +29,7 @@ class TopNav extends React.Component {
         } else if (this.state.activeFrame === 3) {
             return <div className={'otstup'}><Demo className={'otstup'}></Demo></div>
         } else if (this.state.activeFrame === 4) {
-            return <div className={'otstup'}>ХУЙ</div>
+            return <div className={'otstup'}><Content record ={this.state.activeFrame} ></Content></div>
         } else if (this.state.activeFrame === 5) {
             return <div className={'otstup'}>Настройки</div>
         }

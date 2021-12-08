@@ -6,14 +6,14 @@ import '../../styles/NewWallet.css'
 import {message, Modal, Button, Table, Form, Input} from 'antd';
 import {
     DeleteOutlined,
-    CaretDownFilled,
-    FullscreenOutlined,
     EditOutlined
 } from '@ant-design/icons';
 import {deleteWallet, updateWallet} from "../../logic/Store";
+import BillsList from "../trash/BillsList";
 
 const serverUrl = 'http://localhost:8080';
 const serverGetWalletsUrl = '/wallets';
+const serverGetBillsUrl = '/wallets/bills';
 
 function myFunction() {
     var popup = document.getElementById("myPopup");
@@ -54,7 +54,10 @@ class WalletTable extends React.Component {
                         validPhone: 'true',
                         validToken: 'true',
                         deleteRecord: {},
-                        deleteRecordId: null
+                        deleteRecordId: null,
+                        billWallet: {},
+                        billRecord: {},
+                        isModalBillVisible: false
                     };
 
            this.showModal = this.showModal.bind(this);
@@ -68,6 +71,8 @@ class WalletTable extends React.Component {
            this.handleChangeFio = this.handleChangeFio.bind(this);
            this.handleSubmit = this.handleSubmit.bind(this);
            this.handlePushDelete = this.handlePushDelete.bind(this);
+           this.handleBillPayAll = this.handleBillPayAll.bind(this);
+           this.handleBillCancel = this.handleBillCancel.bind(this);
        }
     handleChangeName(event) {
         const value = event.target.value
@@ -145,6 +150,11 @@ class WalletTable extends React.Component {
         this.setState({isModalEditVisible: true});
     };
 
+    showBillModal(record) {
+        this.setState({billWallet: record});
+        this.setState({isModalBillVisible: true});
+    }
+
     showDeleteModal(record) {
         this.setState({deleteRecord: record});
         this.setState({
@@ -167,6 +177,15 @@ class WalletTable extends React.Component {
 
     handleDeleteCancel (event) {
         this.setState({isModalDeleteVisible: false});
+    };
+
+    handleBillPayAll (event) {
+        this.setState({isModalBillVisible: false});
+    };
+
+    handleBillCancel (event) {
+        console.log(this.state.billRecord);
+        this.setState({isModalBillVisible: false});
     };
 
     handlePushDelete (record) {
@@ -226,7 +245,6 @@ class WalletTable extends React.Component {
                             render(text, record) {
                                 return {
                                     props: {
-                                        // style: {background: parseInt(text) === -404 ? "red" : "green"}
                                     },
                                     children: parseInt(text) === -404 ?
                                         <Button
@@ -241,14 +259,27 @@ class WalletTable extends React.Component {
                         {
                             title: 'ФИО',
                             dataIndex: 'full_name',
-                            key: '2',
+                            key: 'full_name',
                             width: 150,
                         },
                         {
                             title: 'API токен',
                             dataIndex: 'token',
-                            key: '2',
+                            key: 'token',
                             width: 150,
+                        },
+                        {
+                            title: 'Счета',
+                            dataIndex: 'bill',
+                            key: 'bill',
+                            width: 150,
+                            render: (index, record) => <a>
+                                <Button shape={'round'} color={'green'} type={'primary'} block
+                                        onClick={() => this.showBillModal(record)}>
+                                    Счета
+                                    <DeleteOutlined/>
+                                </Button>
+                            </a>
                         },
                         {
                             title: 'Править',
@@ -342,7 +373,23 @@ class WalletTable extends React.Component {
                                        dataSource={items}
                                        scroll={{x: 1500}}
                                        pagination={{defaultPageSize: 50}}
-                                />,
+                                />
+                                <Modal title={"Активные выставленные счета.  Телефон: " + this.state.billWallet.phone}
+                                       visible={this.state.isModalBillVisible}
+                                       onCancel={this.handleBillCancel}
+                                       width={1100} okType={'danger'}
+                                       footer={[
+                                           <Button key="back" onClick={this.handleBillPayAll}>
+                                               Оплатить все
+                                           </Button>,
+                                           <Button key="submit" type="primary" onClick={this.handleBillCancel}>
+                                               Отмена
+                                           </Button>,
+                                       ]}>
+
+
+                                    <BillsList wallet={this.state.billWallet}></BillsList>
+                                </Modal>
                             </div>
                         );
                     }
