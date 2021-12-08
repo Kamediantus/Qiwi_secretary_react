@@ -1,9 +1,9 @@
 import React from 'react';
 import {Button, Form, Input, Modal, Select, Table} from "antd";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import {payBill} from "../../logic/Store";
 
 const serverUrl = 'http://localhost:8080';
-const serverGetBillsUrl = '/wallets/bills/';
+const serverGetBillsUrl = '/bills/';
 
 class BillsList extends React.Component {
     constructor(props) {
@@ -40,21 +40,18 @@ class BillsList extends React.Component {
         var columns = [
             {
                 title: 'Id',
-                // width: 20,
                 dataIndex: 'id',
                 key: 'id',
                 fixed: 'left',
             },
             {
                 title: 'От кого',
-                // width: 20,
                 dataIndex: 'name',
                 key: 'name',
                 fixed: 'left',
             },
             {
                 title: 'Сумма',
-                // width: 20,
                 dataIndex: 'amount',
                 key: 'phone',
                 fixed: 'left',
@@ -62,10 +59,10 @@ class BillsList extends React.Component {
             {
                 title: 'Оплатить',
                 key: 'pay',
-                // width: 20,
                 fixed: 'left',
                 render: (index, record) => <a>
-                    <Button shape={'round'} color={'green'} type={'primary'} block>
+                    <Button shape={'round'} color={'green'} type={'primary'} block
+                            onClick={() => payBill(record)}>
                         Оплатить
                     </Button>
                 </a>

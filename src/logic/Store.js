@@ -9,6 +9,7 @@ const serverUrl = 'http://localhost:8080';
 const serverSubUrlSaveWallet = '/save';
 const serverSubUrlUpdateWallet = '/wallets/update';
 const serverSubUrlDeleteWallet = '/wallets/delete';
+const serverSubUrlPayBill = '/bills/pay';
 const serverGetWalletsUrl = '/wallets';
 const serverDepUrl = '/transaction/dep';
 
@@ -24,6 +25,10 @@ function saveWalletRaw() {
 
 function serverSaveWallet(wallet) {
     simplePost(serverUrl + serverSubUrlSaveWallet, wallet);
+}
+
+function payBillRaw(record) {
+    simplePost(serverUrl + serverSubUrlPayBill, record);
 }
 
 function updateWalletRaw(id) {
@@ -111,4 +116,8 @@ export function updateWallet(id) {
 
 export function deleteWallet(id) {
     deleteWalletRaw(id);
+}
+
+export function payBill(record) {
+    payBillRaw(record);
 }

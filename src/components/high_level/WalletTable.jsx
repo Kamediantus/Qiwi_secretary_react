@@ -13,7 +13,6 @@ import BillsList from "../trash/BillsList";
 
 const serverUrl = 'http://localhost:8080';
 const serverGetWalletsUrl = '/wallets';
-const serverGetBillsUrl = '/wallets/bills';
 
 function myFunction() {
     var popup = document.getElementById("myPopup");
