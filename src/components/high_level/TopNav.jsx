@@ -7,7 +7,7 @@ import { TransactionOutlined, HistoryOutlined, SettingOutlined, PlusSquareOutlin
 import WalletTable from "./WalletTable";
 import NewWalletForm from "./NewWalletForm";
 import Demo from "./Transaction";
-import Content from "../trash/BillsList";
+import Content from "../low_level/BillsList";
 
 const { Header } = Layout;
 

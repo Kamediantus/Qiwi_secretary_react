@@ -9,15 +9,10 @@ import {
     EditOutlined
 } from '@ant-design/icons';
 import {deleteWallet, payAllBills, updateWallet} from "../../logic/Store";
-import BillsList from "../trash/BillsList";
+import BillsList from "../low_level/BillsList";
 
 const serverUrl = 'http://localhost:8080';
 const serverGetWalletsUrl = '/wallets';
-
-function myFunction() {
-    var popup = document.getElementById("myPopup");
-    popup.classList.toggle("show");
-}
 
 function showWarn () {
     message.warning('Не удалось получить ответ от Qiwi API. Проверьте телефон и токен. ', 4);

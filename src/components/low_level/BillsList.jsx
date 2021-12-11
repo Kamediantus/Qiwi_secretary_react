@@ -40,7 +40,7 @@ class BillsList extends React.Component {
         var columns = [
             {
                 title: 'Id',
-                dataIndex: 'id',
+                dataIndex: 'bill_id',
                 key: 'id',
                 fixed: 'left',
             },
