@@ -10,9 +10,10 @@ import {
 } from '@ant-design/icons';
 import {deleteWallet, payAllBills, updateWallet} from "../../logic/Store";
 import BillsList from "../low_level/BillsList";
+import {simpleGet} from "../../logic/ApiQuery";
 
 const serverUrl = 'http://localhost:8080';
-const serverGetWalletsUrl = '/wallets';
+const serverGetWalletsUrl = '/wallets/get';
 
 function showWarn () {
     message.warning('Не удалось получить ответ от Qiwi API. Проверьте телефон и токен. ', 4);
@@ -104,13 +105,10 @@ class WalletTable extends React.Component {
         }
     }
 
-    enterLoading = index => {
-        message.warning('bla bla bla' + index);
-    }
-
     handleChangeFio(event) {
         this.setState({fioValue: event.target.value});
     }
+
     handleSubmit(event) {
         let resultMessage = '';
         if (this.state.validName === 'false') {
@@ -179,7 +177,6 @@ class WalletTable extends React.Component {
     };
 
     handleBillCancel (event) {
-        console.log(this.state.billRecord);
         this.setState({isModalBillVisible: false});
     };
 
@@ -190,7 +187,14 @@ class WalletTable extends React.Component {
         this.setState({isModalDeleteVisible: false});
     };
 
-                componentDidMount() {
+                async componentDidMount() {
+                    // var result = await simpleGet(serverUrl + serverGetWalletsUrl);
+                    // if (result !== -404) {
+                    //     this.setState({
+                    //         isLoaded: true,
+                    //         items: result
+                    //     });
+                    // }
                     fetch(serverUrl + serverGetWalletsUrl)
                         .then(res => res.json())
                         .then(
@@ -381,8 +385,6 @@ class WalletTable extends React.Component {
                                                Отмена
                                            </Button>,
                                        ]}>
-
-
                                     <BillsList wallet={this.state.billWallet}></BillsList>
                                 </Modal>
                             </div>

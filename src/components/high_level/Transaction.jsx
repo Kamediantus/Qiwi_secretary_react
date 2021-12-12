@@ -5,7 +5,7 @@ import {dep} from "../../logic/Store";
 
 const serverUrl = 'http://localhost:8080';
 const serverGetWalletsUrlSelector = '/wallets/selector';
-const serverGetWalletsUrl = '/wallets';
+const serverGetWalletsUrl = '/wallets/get';
 const { Option } = Select;
 const layout = {
     labelCol: {
@@ -172,10 +172,10 @@ class Demo extends React.Component {
                     </Form.Item>
                     <Form.Item {...tailLayout}>
                         <Button type="primary" htmlType="submit">
-                            Submit
+                            Перевести
                         </Button>
                         <Button type="link" htmlType="button" onClick={this.onReset}>
-                            Reset
+                            Сбросить
                         </Button>
                     </Form.Item>
                 </Form>

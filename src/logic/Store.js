@@ -1,3 +1,5 @@
+import {message} from "antd";
+
 const formIndex = 0;
 
 const nameIndex = 0;
@@ -6,13 +8,13 @@ const tokenIndex = 2;
 const full_nameIndex = 3;
 
 const serverUrl = 'http://localhost:8080';
-const serverSubUrlSaveWallet = '/save';
+const serverSubUrlSaveWallet = '/wallets/save';
 const serverSubUrlUpdateWallet = '/wallets/update';
 const serverSubUrlDeleteWallet = '/wallets/delete';
 const serverSubUrlPayBill = '/bills/pay';
 const serverSubUrlPayAllBills = '/bills/payAll';
-const serverGetWalletsUrl = '/wallets';
-const serverDepUrl = '/transaction/dep';
+const serverGetWalletsUrl = '/wallets/get';
+const serverDepUrl = '/transactions/dep';
 
 function saveWalletRaw() {
     const wallet = {
@@ -29,7 +31,7 @@ function serverSaveWallet(wallet) {
 }
 
 function payBillRaw(record) {
-    simplePost(serverUrl + serverSubUrlPayBill, record);
+    return simplePost(serverUrl + serverSubUrlPayBill, record);
 }
 
 function payAllBillsRaw(record) {
@@ -73,6 +75,16 @@ function simplePost(url, body) {
     xmlHttp.send(JSON.stringify(body));
 }
 
+function asyncPost(url, body, callback) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "POST", url, true ); // false for synchronous request
+    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlHttp.onload  = function() {
+        callback(xmlHttp.response);
+    };
+    xmlHttp.send(JSON.stringify(body));
+}
+
 function getExistWallets(callback) {
     var req = new XMLHttpRequest();
     req.responseType = 'json';
@@ -111,8 +123,8 @@ export function getWallets(func) {
     getExistWallets(func);
 }
 
-export function dep(func) {
-    serverDep(func);
+export function dep(values) {
+    serverDep(values);
 }
 
 export function updateWallet(id) {
@@ -124,9 +136,10 @@ export function deleteWallet(id) {
 }
 
 export function payBill(record) {
-    payBillRaw(record);
+    return payBillRaw(record);
 }
 
 export function payAllBills(record) {
+    message.info('Успешная оплата всех счетов.');
     payAllBillsRaw(record);
 }

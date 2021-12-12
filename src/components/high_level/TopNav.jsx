@@ -36,7 +36,7 @@ class TopNav extends React.Component {
     }
 
     setActiveComponent(event, index) {
-        if (this.state.activeFrame != index) {
+        if (this.state.activeFrame !== index) {
             this.setState({
                 activeFrame: index
             });
