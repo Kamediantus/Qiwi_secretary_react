@@ -4,8 +4,8 @@ import {Form, Input, Button, Select, InputNumber, message} from 'antd';
 import {dep} from "../../logic/Store";
 
 const serverUrl = 'http://localhost:8080';
-const serverGetWalletsUrlSelector = '/wallets/selector';
-const serverGetWalletsUrl = '/wallets/get';
+const serverGetWalletsUrlSelector = '/wallets/getWalletsFroSelector';
+const serverGetWalletsUrl = '/wallets/getWalletsWithBalances';
 const { Option } = Select;
 const layout = {
     labelCol: {

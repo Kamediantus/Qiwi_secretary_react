@@ -13,7 +13,7 @@ import BillsList from "../low_level/BillsList";
 import {simpleGet} from "../../logic/ApiQuery";
 
 const serverUrl = 'http://localhost:8080';
-const serverGetWalletsUrl = '/wallets/get';
+const serverGetWalletsUrl = '/wallets/getWalletsWithBalances';
 
 function showWarn () {
     message.warning('Не удалось получить ответ от Qiwi API. Проверьте телефон и токен. ', 4);

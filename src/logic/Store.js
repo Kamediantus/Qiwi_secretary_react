@@ -13,7 +13,7 @@ const serverSubUrlUpdateWallet = '/wallets/update';
 const serverSubUrlDeleteWallet = '/wallets/delete';
 const serverSubUrlPayBill = '/bills/pay';
 const serverSubUrlPayAllBills = '/bills/payAll';
-const serverGetWalletsUrl = '/wallets/get';
+const serverGetWalletsUrl = '/wallets/getWalletsWithBalances';
 const serverDepUrl = '/transactions/dep';
 
 function saveWalletRaw() {

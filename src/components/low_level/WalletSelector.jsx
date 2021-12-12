@@ -3,7 +3,7 @@ import {Select} from "antd";
 import {Option} from "antd/es/mentions";
 
 const serverUrl = 'http://localhost:8080';
-const serverGetWalletsUrl = '/wallets/selector';
+const serverGetWalletsUrl = '/wallets/getWalletsFroSelector';
 
 class WalletSelector extends React.Component {
     constructor(props) {
