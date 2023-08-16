@@ -1,8 +1,8 @@
 import React from 'react';
 import {Button} from "antd";
 
-const phone ='79961868134';
-const token ='c386cfd6090cb2e27542e06f6d962927';
+const phone ='7*********';
+const token ='**********';
 const apiUrl = 'https://edge.qiwi.com';
 const apiFirstBalanceSubUrl = '/funding-sources/v2/persons/';
 const apiSecondBalanceSubUrl = '/accounts';
